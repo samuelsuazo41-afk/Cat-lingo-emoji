@@ -74,6 +74,13 @@ function tancarModal() {
   document.getElementById('modal').classList.add('hidden');
 }
 
+// Converteix nivell numèric 1-3->a1, 4-6->a2, 7+->b1
+function mapaNivellALletra(num) {
+  if (num <= 3) return 'a1';
+  if (num <= 6) return 'a2';
+  return 'b1';
+}
+
 // ===== INICIALITZACIÓ =====
 document.addEventListener('DOMContentLoaded', async () => {
   aplicarIdioma();
@@ -83,7 +90,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   carregarBotiga();
   carregarTips();
   carregarLectura();
-  // Obrir Biblioteca -> Diccionari per defecte
   mostrarBibliotecaTab('diccionari', null);
 });
 
@@ -125,7 +131,7 @@ function actualitzarUI() {
   document.getElementById('monedes').innerHTML = `${estat.monedes} <span id="text-monedes">${LANG.monedes}</span>`;
 }
 
-// ===== CARREGAR DADES A PROVA DE FALLOS =====
+// ===== CARREGAR DADES =====
 async function carregarDades() {
   try {
     const res = await fetch('./data/biblioteca_emojis.json');
@@ -217,7 +223,7 @@ function carregarMissioTab() {
   `;
 }
 
-// ===== GREMI = BIBLIOTECA NOMÉS =====
+// ===== GREMI = BIBLIOTECA =====
 function mostrarBibliotecaTab(tab, e) {
   document.querySelectorAll('#tab-gremi.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
   if(e) e.target.classList.add('active');
@@ -379,9 +385,7 @@ const lectures = {
       pregunta: "A quina hora arriba la Maria a la feina?",
       resposta: "A les nou"
     }
-    // +29 lectures més d'A1 aquí
   ],
-
   a2: [
     {
       titol: "Un cap de setmana diferent",
@@ -401,9 +405,7 @@ const lectures = {
       pregunta: "Què van decidir fer l’agost?",
       resposta: "Anar a la platja"
     }
-    // +29 lectures més d'A2 aquí
   ],
-
   b1: [
     {
       titol: "Una decisió important",
@@ -423,7 +425,6 @@ const lectures = {
       pregunta: "Què farà demà l’usuari?",
       resposta: "Trucarà per demanar una entrevista"
     }
-    // +19 lectures més de B1 aquí
   ]
 };
 
@@ -441,31 +442,32 @@ function carregarLectura() {
 }
 
 function generarLectura() {
-  let nivell = estat.progres.nivellActualMapa.toLowerCase();
+  let num = estat.progres.nivellActualMapa;
+  let nivell = mapaNivellALletra(num);
   let llistatLectures = lectures[nivell];
-  
+
   if (!llistatLectures || llistatLectures.length === 0) {
     document.getElementById('lectura-content').innerHTML = "Encara no hi ha lectures d’aquest nivell.";
     return;
   }
-  
+
   if (lecturesUsades[nivell].length >= llistatLectures.length) {
     lecturesUsades[nivell] = [];
   }
-  
-  let indexDisponibles = llistatLectures.map((_, i) => i).filter(i => !lecturesUsades[nivell].includes(i));
+
+  let indexDisponibles = llistatLectures.map((_, i) => i).filter(i =>!lecturesUsades[nivell].includes(i));
   let indexAleatori = indexDisponibles[Math.floor(Math.random()*indexDisponibles.length)];
   lecturesUsades[nivell].push(indexAleatori);
-  
+
   let lectura = llistatLectures[indexAleatori];
-  
-  let vocabulariHTML = lectura.vocabulari.map(v => 
+
+  let vocabulariHTML = lectura.vocabulari.map(v =>
     `<div style="display:flex; justify-content:space-between; margin:4px 0; font-size:14px;">
       <span style="color:#4CAF50;">${v.cat}</span>
       <span style="opacity:0.7;">${v.es}</span>
     </div>`
   ).join('');
-  
+
   let html = `
     <div style="margin-bottom:15px;">
       <h4 style="margin:0 0 12px 0; color:#4CAF50; font-size:18px;">${lectura.titol}</h4>
@@ -480,22 +482,11 @@ function generarLectura() {
       <span style="opacity:0.6; font-size:14px;">Resposta: ${lectura.resposta}</span>
     </div>
   `;
-  
-  document.getElementById('lectura-content').innerHTML = html;
- }
 
-// ===== TIPS =====
-function carregarTips() {
-  const cont = document.getElementById('tips-content');
-  cont.innerHTML = `
-    <h3 style="text-align:center; margin-bottom:12px;">${LANG.tips_title}</h3>
-    <div id="tips-content" style="background:rgba(255,255,255,0.1); padding:15px; border-radius:12px; min-height:80px; white-space:pre-line;">
-      Prem "${LANG.tips_btn}" per un tip nou
-    </div>
-    <button class="btn" onclick="generarTip()">${LANG.tips_btn}</button>
-  `;
+  document.getElementById('lectura-content').innerHTML = html;
 }
 
+// ===== TIPS =====
 const dadesTips = {
   a1: [
     {truc: "El per masculí singular, La per femení singular", exemple: "El gat, La gata"},
@@ -531,7 +522,7 @@ const dadesTips = {
   ],
   a2: [
     {truc: "NY es pronuncia com ñ d'espanyol", exemple: "Any = Añ, Seny = Señ"},
-    {truc: "Bon dia = Buenos días, no Buenos días", exemple: "Bon dia! Com estàs?"},
+    {truc: "Bon dia = Buenos días", exemple: "Bon dia! Com estàs?"},
     {truc: "Passat perifràstic: vaig + infinitiu", exemple: "Vaig menjar"},
     {truc: "Futur pròxim: anar a + infinitiu", exemple: "Vaig a estudiar"},
     {truc: "Pronoms febles van davant del verb", exemple: "Me'l dono"},
@@ -553,7 +544,7 @@ const dadesTips = {
     {truc: "Tampoc = tampoco", exemple: "Jo tampoc"},
     {truc: "Ni... ni = ni... ni", exemple: "Ni cafè ni te"},
     {truc: "O... o = o... o", exemple: "O vens o no"},
-    {truc: "I = y", exemple: "Pa i vi"},
+    {truc: "I = " y", exemple: "Pa i vi"},
     {truc: "Però = pero", exemple: "Vinc però tard"},
     {truc: "Que = que", exemple: "Crec que sí"},
     {truc: "Quan = cuando", exemple: "Quan arribis"},
@@ -582,21 +573,36 @@ const dadesTips = {
   ]
 };
 
-let nivellActual = 'a1';
 let tipsUsats = {a1: [], a2: [], b1: []};
 
-function generarTip() {
-  let dadesNivell = dadesTips[nivellActual];
-  if (tipsUsats[nivellActual].length >= dadesNivell.length) {
-    tipsUsats[nivellActual] = [];
+function carregarTips() {
+  let num = estat.progres.nivellActualMapa;
+  let nivell = mapaNivellALletra(num);
+  let llistatTips = dadesTips[nivell];
+
+  const cont = document.getElementById('tips-contenidor');
+  if (!llistatTips || llistatTips.length === 0) {
+    cont.innerHTML = `<div style="text-align:center; opacity:0.6; padding:40px;">Encara no hi ha tips per aquest nivell</div>`;
+    return;
   }
-  let indexDisponibles = dadesNivell.map((_, i) => i).filter(i => !tipsUsats[nivellActual].includes(i));
+
+  if (tipsUsats[nivell].length >= llistatTips.length) {
+    tipsUsats[nivell] = [];
+  }
+
+  let indexDisponibles = llistatTips.map((_, i) => i).filter(i =>!tipsUsats[nivell].includes(i));
   let indexAleatori = indexDisponibles[Math.floor(Math.random()*indexDisponibles.length)];
-  tipsUsats[nivellActual].push(indexAleatori);
-  let d = dadesNivell[indexAleatori];
-  let tipFormatejat = `💡 Truc: "${d.truc}".\nExemple: ${d.exemple}`;
-  document.getElementById('tips-content').innerHTML = tipFormatejat;
-  }
+  tipsUsats[nivell].push(indexAleatori);
+
+  let tip = llistatTips[indexAleatori];
+  cont.innerHTML = `
+    <div style="background:#1a1a1a; padding:20px; border-radius:12px; margin-bottom:15px;">
+      <div style="font-size:18px; margin-bottom:10px;">💡 ${tip.truc}</div>
+      <div style="opacity:0.7; font-size:14px;">Exemple: ${tip.exemple}</div>
+    </div>
+    <button class="btn" onclick="carregarTips()" style="width:100%;">Següent Tip</button>
+  `;
+}
 
 // ===== BOTIGA =====
 async function carregarBotiga() {
