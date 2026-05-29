@@ -359,6 +359,76 @@ function comprovarMinijoc() {
 }
 
 // ===== LECTURA =====
+const lectures = {
+  a1: [
+    {
+      titol: "Un dia a la ciutat",
+      text: "La Maria es desperta a les vuit del matí. Fa sol i el cel és blau. Ella es renta la cara i es vesteix. Pren el cafè amb pa i mantega. Surt de casa i tanca la porta. Va caminant cap a la feina. Saluda els seus veïns pel carrer. Compra un diari al quiosc. Arriba a l’oficina a les nou. Treballa amb l’ordinador tot el dia.",
+      vocabulari: [
+        {cat:"es desperta",es:"se despierta"},
+        {cat:"es vesteix",es:"se viste"},
+        {cat:"quiosc",es:"quiosco"},
+        {cat:"ordinador",es:"ordenador"},
+        {cat:"veïns",es:"vecinos"},
+        {cat:"matí",es:"mañana"},
+        {cat:"renta",es:"lava"},
+        {cat:"mantega",es:"mantequilla"},
+        {cat:"surt",es:"sale"},
+        {cat:"camina",es:"camina"}
+      ],
+      pregunta: "A quina hora arriba la Maria a la feina?",
+      resposta: "A les nou"
+    }
+    // +29 lectures més d'A1 aquí
+  ],
+
+  a2: [
+    {
+      titol: "Un cap de setmana diferent",
+      text: "Dissabte passat vaig anar al cinema amb els meus amics. Vam veure una pel·lícula d’acció molt divertida. Després vam anar a sopar a un restaurant italià. Jo vaig demanar pizza i ells van demanar pasta. Mentre menjàvem, parlàvem de les vacances d’estiu. Vam decidir que aniríem a la platja l’agost. Diumenge vaig llevar-me tard i vaig esmorzar amb la meva família. A la tarda vaig netejar la meva habitació. Vaig escoltar música mentre ho feia. Va ser un cap de setmana molt relaxant.",
+      vocabulari: [
+        {cat:"cap de setmana",es:"fin de semana"},
+        {cat:"vam veure",es:"vimos"},
+        {cat:"mentre",es:"mientras"},
+        {cat:"aniríem",es:"iríamos"},
+        {cat:"llevar-me",es:"levantarme"},
+        {cat:"dissabte",es:"sábado"},
+        {cat:"pel·lícula",es:"película"},
+        {cat:"demanar",es:"pedir"},
+        {cat:"esmorzar",es:"desayunar"},
+        {cat:"relaxant",es:"relajante"}
+      ],
+      pregunta: "Què van decidir fer l’agost?",
+      resposta: "Anar a la platja"
+    }
+    // +29 lectures més d'A2 aquí
+  ],
+
+  b1: [
+    {
+      titol: "Una decisió important",
+      text: "Fa temps que penso que hauria de canviar de feina. El meu cap no em tracta gaire bé i no estic content. M’agradaria trobar una feina on pugui créixer professionalment. He estat buscant ofertes per internet aquesta setmana. He trobat una empresa que em sembla interessant. Si m’acceptessin, hauria de treballar més hores. Però també guanyaria més diners i aprendria coses noves. Els meus pares em diuen que ho pensi bé abans de decidir. Jo crec que el més important és ser feliç amb el que fas. Demà trucaré per demanar una entrevista.",
+      vocabulari: [
+        {cat:"hauria de",es:"debería"},
+        {cat:"pugui",es:"pueda"},
+        {cat:"si m’acceptessin",es:"si me aceptaran"},
+        {cat:"guanyaria",es:"ganaría"},
+        {cat:"el que fas",es:"lo que haces"},
+        {cat:"tracta",es:"trata"},
+        {cat:"créixer",es:"crecer"},
+        {cat:"ofertes",es:"ofertas"},
+        {cat:"important",es:"importante"},
+        {cat:"entrevista",es:"entrevista"}
+      ],
+      pregunta: "Què farà demà l’usuari?",
+      resposta: "Trucarà per demanar una entrevista"
+    }
+    // +19 lectures més de B1 aquí
+  ]
+};
+
+let lecturesUsades = {a1: [], a2: [], b1: []};
+
 function carregarLectura() {
   const cont = document.getElementById('lectura-contenidor');
   cont.innerHTML = `
@@ -371,51 +441,162 @@ function carregarLectura() {
 }
 
 function generarLectura() {
-  const textos = ["El gat menja una poma al jardí. És feliç.", "La noia llegeix un llibre a casa. Està tranquil·la.", "El nen juga amb el gos al parc. Riu molt."];
-  document.getElementById('lectura-content').textContent = textos[Math.floor(Math.random()*textos.length)];
-}
+  let nivell = estat.progres.nivellActualMapa.toLowerCase();
+  let llistatLectures = lectures[nivell];
+  
+  if (!llistatLectures || llistatLectures.length === 0) {
+    document.getElementById('lectura-content').innerHTML = "Encara no hi ha lectures d’aquest nivell.";
+    return;
+  }
+  
+  if (lecturesUsades[nivell].length >= llistatLectures.length) {
+    lecturesUsades[nivell] = [];
+  }
+  
+  let indexDisponibles = llistatLectures.map((_, i) => i).filter(i => !lecturesUsades[nivell].includes(i));
+  let indexAleatori = indexDisponibles[Math.floor(Math.random()*indexDisponibles.length)];
+  lecturesUsades[nivell].push(indexAleatori);
+  
+  let lectura = llistatLectures[indexAleatori];
+  
+  let vocabulariHTML = lectura.vocabulari.map(v => 
+    `<div style="display:flex; justify-content:space-between; margin:4px 0; font-size:14px;">
+      <span style="color:#4CAF50;">${v.cat}</span>
+      <span style="opacity:0.7;">${v.es}</span>
+    </div>`
+  ).join('');
+  
+  let html = `
+    <div style="margin-bottom:15px;">
+      <h4 style="margin:0 0 12px 0; color:#4CAF50; font-size:18px;">${lectura.titol}</h4>
+      <p style="margin:0 0 15px 0; text-align:justify;">${lectura.text}</p>
+    </div>
+    <div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:8px; margin-bottom:15px;">
+      <strong style="color:#4CAF50;">Vocabulari nou:</strong>
+      ${vocabulariHTML}
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
+      <strong>Pregunta:</strong> ${lectura.pregunta}<br>
+      <span style="opacity:0.6; font-size:14px;">Resposta: ${lectura.resposta}</span>
+    </div>
+  `;
+  
+  document.getElementById('lectura-content').innerHTML = html;
+ }
 
 // ===== TIPS =====
 function carregarTips() {
-  const cont = document.getElementById('tips-contenidor');
+  const cont = document.getElementById('tips-content');
   cont.innerHTML = `
-    <h3 style="text-align:center; margin-bottom:15px;">${LANG.tips_titol}</h3>
-    <div id="tips-content" style="background:#1a1a1a; padding:20px; border-radius:12px; min-height:100px; font-size:16px; line-height:1.6; margin-bottom:15px;">
+    <h3 style="text-align:center; margin-bottom:12px;">${LANG.tips_title}</h3>
+    <div id="tips-content" style="background:rgba(255,255,255,0.1); padding:15px; border-radius:12px; min-height:80px; white-space:pre-line;">
       Prem "${LANG.tips_btn}" per un tip nou
     </div>
-    <button class="btn" onclick="generarTip()" style="width:100%;">${LANG.tips_btn}</button>
+    <button class="btn" onclick="generarTip()">${LANG.tips_btn}</button>
   `;
 }
 
-// Variables globals per controlar el nivell actual
-let nivellActual = 'a1'; // pots canviar a 'a2' o 'b1' quan pugi de nivell
-let tipsUsats = {a1: [], a2: [], b1: []}; // per no repetir fins que s'acabin
+const dadesTips = {
+  a1: [
+    {truc: "El per masculí singular, La per femení singular", exemple: "El gat, La gata"},
+    {truc: "Els per masculí plural, Les per femení plural", exemple: "Els gats, Les gates"},
+    {truc: "Un/Una per indefinits singulars", exemple: "Un llibre, Una taula"},
+    {truc: "Uns/Unes per indefinits plurals", exemple: "Uns llibres, Unes taules"},
+    {truc: "Jo + verb en 1a persona singular", exemple: "Jo parlo"},
+    {truc: "Tu + verb en 2a persona singular", exemple: "Tu parles"},
+    {truc: "Ell/ella + verb en 3a persona singular", exemple: "Ell parla"},
+    {truc: "Nosaltres + verb en 1a persona plural", exemple: "Nosaltres parlem"},
+    {truc: "Vosaltres + verb en 2a persona plural", exemple: "Vosaltres parleu"},
+    {truc: "Ells/elles + verb en 3a persona plural", exemple: "Ells parlen"},
+    {truc: "Ser = ésser permanent", exemple: "Jo sóc català"},
+    {truc: "Estar = estat temporal", exemple: "Estic cansat"},
+    {truc: "Tenir = possessió", exemple: "Tinc un llibre"},
+    {truc: "Fer = acció", exemple: "Faig els deures"},
+    {truc: "Anar = moviment", exemple: "Vaig a casa"},
+    {truc: "Bon dia per saludar al matí", exemple: "Bon dia! Com estàs?"},
+    {truc: "Bona tarda per saludar a la tarda", exemple: "Bona tarda!"},
+    {truc: "Bona nit per acomiadar-se", exemple: "Bona nit!"},
+    {truc: "Si us plau = por favor", exemple: "Si us plau, ajuda'm"},
+    {truc: "Gràcies = gracias", exemple: "Gràcies per tot"},
+    {truc: "De res = de nada", exemple: "De res!"},
+    {truc: "Quant costa? per preguntar preu", exemple: "Quant costa això?"},
+    {truc: "Quant és? per preguntar hora", exemple: "Quant és?"},
+    {truc: "On és? per preguntar lloc", exemple: "On és el lavabo?"},
+    {truc: "Com et dius? per preguntar nom", exemple: "Com et dius?"},
+    {truc: "Em dic = me llamo", exemple: "Em dic Joan"},
+    {truc: "Quin/quina per preguntar qualitat", exemple: "Quin color t’agrada?"},
+    {truc: "Quants/quantes per preguntar quantitat", exemple: "Quants anys tens?"},
+    {truc: "Aquest/aqueste/aquests/aquestes = este/esta/estos/estas", exemple: "Aquest llibre"},
+    {truc: "Aquell/aquella/aquells/aquelles = aquel/aquella/aquellos/aquellas", exemple: "Aquell cotxe"}
+  ],
+  a2: [
+    {truc: "NY es pronuncia com ñ d'espanyol", exemple: "Any = Añ, Seny = Señ"},
+    {truc: "Bon dia = Buenos días, no Buenos días", exemple: "Bon dia! Com estàs?"},
+    {truc: "Passat perifràstic: vaig + infinitiu", exemple: "Vaig menjar"},
+    {truc: "Futur pròxim: anar a + infinitiu", exemple: "Vaig a estudiar"},
+    {truc: "Pronoms febles van davant del verb", exemple: "Me'l dono"},
+    {truc: "Negació: no + verb", exemple: "No parlo"},
+    {truc: "Interrogació: posar el verb davant", exemple: "Parles català?"},
+    {truc: "Perquè = porque pregunta/resposta", exemple: "Perquè sí"},
+    {truc: "Per a = para + infinitiu", exemple: "És per a tu"},
+    {truc: "De + nom = de", exemple: "El llibre de Joan"},
+    {truc: "A + nom = a", exemple: "Vaig a casa"},
+    {truc: "En + lloc = en", exemple: "Estic en classe"},
+    {truc: "Amb + nom = con", exemple: "Amb amics"},
+    {truc: "Sense + nom = sin", exemple: "Sense sucre"},
+    {truc: "Molt + adjectiu = muy", exemple: "Molt bonic"},
+    {truc: "Massa + nom = demasiado", exemple: "Massa feina"},
+    {truc: "Poc + nom = poco", exemple: "Poc temps"},
+    {truc: "Gaire + nom = mucho en negació", exemple: "No tinc gaire temps"},
+    {truc: "Encara = todavía", exemple: "Encara no"},
+    {truc: "Ja = ya", exemple: "Ja he acabat"},
+    {truc: "Tampoc = tampoco", exemple: "Jo tampoc"},
+    {truc: "Ni... ni = ni... ni", exemple: "Ni cafè ni te"},
+    {truc: "O... o = o... o", exemple: "O vens o no"},
+    {truc: "I = y", exemple: "Pa i vi"},
+    {truc: "Però = pero", exemple: "Vinc però tard"},
+    {truc: "Que = que", exemple: "Crec que sí"},
+    {truc: "Quan = cuando", exemple: "Quan arribis"},
+    {truc: "Si = si", exemple: "Si vols"},
+    {truc: "Com = como", exemple: "Com estàs?"}
+  ],
+  b1: [
+    {truc: "Apòstrof L' D' N' S' davant vocal", exemple: "L'home, D'aigua, N'hi ha, S'obre"},
+    {truc: "Accent greu È Ò obre el so de la vocal", exemple: "Pèra, Còp, Tròs"},
+    {truc: "Accent agut É Ó tanca el so de la vocal", exemple: "Café, Córrer, Nóvio"},
+    {truc: "È vs É canvia el significat", exemple: "Pès = pes, Pés = pies"},
+    {truc: "Subjuntiu present: que + verb", exemple: "Vull que vinguis"},
+    {truc: "Condicional: verb + ia/ies/ia/íem/íeu/ien", exemple: "Vindria"},
+    {truc: "Pronom hi = en/aquí", exemple: "Hi vaig"},
+    {truc: "Pronom en = de", exemple: "En vull"},
+    {truc: "Pronom ho = neutre", exemple: "Ho sé"},
+    {truc: "Combinació pronom + pronom", exemple: "Me'l, Te'l, Se'l"},
+    {truc: "Passat perifràstic per accions puntuals", exemple: "Ahir vaig anar"},
+    {truc: "Imperfet per accions habituals passades", exemple: "Abans anava"},
+    {truc: "Perifrasi incoativa: posar-se a + infinitiu", exemple: "Es va posar a ploure"},
+    {truc: "Perifrasi durativa: estar + gerundi", exemple: "Estic llegint"},
+    {truc: "Gerundi = -ant/-ent", exemple: "Cantant, Bevent"},
+    {truc: "Participi = -at/-it/-ut", exemple: "Parlat, Begut"},
+    {truc: "Relatius: que, qui, el qual", exemple: "El llibre que llegeixo"},
+    {truc: "Comparatiu: més/menys... que", exemple: "Més gran que tu"}
+  ]
+};
+
+let nivellActual = 'a1';
+let tipsUsats = {a1: [], a2: [], b1: []};
 
 function generarTip() {
   let dadesNivell = dadesTips[nivellActual];
-
-  // Si ja hem usat tots els tips d'aquest nivell, reiniciem
   if (tipsUsats[nivellActual].length >= dadesNivell.length) {
     tipsUsats[nivellActual] = [];
   }
-
-  // Agafem un tip que no s'hagi usat encara
-  let indexDisponibles = dadesNivell
-   .map((_, i) => i)
-   .filter(i =>!tipsUsats[nivellActual].includes(i));
-
+  let indexDisponibles = dadesNivell.map((_, i) => i).filter(i => !tipsUsats[nivellActual].includes(i));
   let indexAleatori = indexDisponibles[Math.floor(Math.random()*indexDisponibles.length)];
   tipsUsats[nivellActual].push(indexAleatori);
-
   let d = dadesNivell[indexAleatori];
   let tipFormatejat = `💡 Truc: "${d.truc}".\nExemple: ${d.exemple}`;
   document.getElementById('tips-content').innerHTML = tipFormatejat;
-}
-
-// Funció per canviar de nivell quan l'usuari pugi
-function canviarNivell(nouNivell) {
-  nivellActual = nouNivell; // 'a1', 'a2' o 'b1'
-}
+  }
 
 // ===== BOTIGA =====
 async function carregarBotiga() {
