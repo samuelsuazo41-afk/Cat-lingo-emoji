@@ -127,8 +127,7 @@ function guardarEstat() {
 }
 
 function actualitzarUI() {
-  let el = document.getElementById('text-monedes');
-  el.innerHTML = `1 ${estat.monedes} Monedes`;
+  document.getElementById('monedes').textContent = estat.monedes;
 }
 
 // ===== CARREGAR DADES =====
