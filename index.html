@@ -102,6 +102,10 @@ body {
   cursor:not-allowed;
   box-shadow:none;
 }
+.btn-sec {
+  background:#444;
+  box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
 .sub-tab-bar {
   display:flex;
   gap:8px;
@@ -151,6 +155,17 @@ body {
   gap:10px;
   margin-bottom:15px;
 }
+.capitol-card {
+  background:#2a2a2a;
+  padding:15px;
+  border-radius:12px;
+  text-align:center;
+}
+.gremi-item {
+  background:#2a2a2a;
+  padding:20px;
+  border-radius:12px;
+}
 </style>
 </head>
 <body>
@@ -166,14 +181,8 @@ body {
     </div>
   </div>
 
-  <div id="tab-missio" class="tab-content active">
-    <p id="minijoc-nivell" style="color:#4CAF50; font-weight:bold; margin:8px 0;"></p>
-    <div id="minijoc-frase" style="background:#222; padding:15px; border-radius:12px; min-height:50px; margin-bottom:15px; text-align:center; font-size:18px;"></div>
-    <button class="btn btn-sec" onclick="novaFraseMinijoc()" style="margin-bottom:15px;">Nova frase</button>
-    <div id="minijoc-emojis" class="emoji-grid"></div>
-    <div id="minijoc-triats" style="background:#222; padding:15px; border-radius:12px; min-height:50px; margin:15px 0; text-align:center; font-size:24px;"></div>
-    <button class="btn" onclick="comprovarMinijoc()">Comprovar</button>
-    <div id="minijoc-feedback" style="margin-top:15px;"></div>
+  <div id="tab-missio" class="tab-content">
+    <div id="missio-contenidor"></div>
   </div>
 
   <div id="tab-gremi" class="tab-content">
@@ -203,11 +212,11 @@ body {
     <span class="nav-icon">🗺️</span>
     <span class="nav-text" id="tab-mapa-txt">Mapa</span>
   </div>
-  <div class="nav-item active" onclick="canviarTab('missio', event)">
+  <div class="nav-item" onclick="canviarTab('missio', event)">
     <span class="nav-icon">📝</span>
     <span class="nav-text" id="tab-missio-txt">Missió</span>
   </div>
-  <div class="nav-item" onclick="canviarTab('gremi', event)">
+  <div class="nav-item active" onclick="canviarTab('gremi', event)">
     <span class="nav-icon">🏛️</span>
     <span class="nav-text" id="tab-gremi-txt">Gremi</span>
   </div>
