@@ -1,8 +1,7 @@
-const CACHE_NAME = 'catlingo-v21';
+const CACHE_NAME = 'catlingo-v23';
 const URLS_TO_CACHE = [
   './',
   './index.html',
-  './styles.css',
   './manifest.json',
   './main.js',
   './data/biblioteca_emojis.json',
