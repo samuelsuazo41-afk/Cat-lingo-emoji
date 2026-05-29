@@ -450,14 +450,8 @@ function generarLectura() {
     return;
   }
 
-  if (lecturesUsades[nivell].length >= llistatLectures.length) {
-    lecturesUsades[nivell] = [];
-  }
-
-  let indexDisponibles = llistatLectures.map((_, i) => i).filter(i =>!lecturesUsades[nivell].includes(i));
-  let indexAleatori = indexDisponibles[Math.floor(Math.random()*indexDisponibles.length)];
-  lecturesUsades[nivell].push(indexAleatori);
-
+  // agafa aleatòria directa, pot repetir
+  let indexAleatori = Math.floor(Math.random() * llistatLectures.length);
   let lectura = llistatLectures[indexAleatori];
 
   let vocabulariHTML = lectura.vocabulari.map(v =>
@@ -484,6 +478,7 @@ function generarLectura() {
 
   document.getElementById('lectura-content').innerHTML = html;
 }
+
 
 // ===== TIPS =====
 const dadesTips = {
