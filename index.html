@@ -11,68 +11,68 @@
 <body>
 
 <div class="header">
-  <h1 id="app-titol">Cat lingo emoji</h1>
+  <h1 id="title">Cat lingo emoji</h1>
   <div class="coins" id="coins">🪙 0 <span id="text-monedes">Monedes</span></div>
 </div>
 
 <!-- TAB MAPA -->
-<div id="tab-mapa" class="tab-content">
+<div id="menuPrincipal" class="tab-content active">
   <div id="mapa"></div>
 </div>
 
 <!-- TAB MISSIO -->
-<div id="tab-missio" class="tab-content active">
-  <div id="missio-contenidor"></div>
+<div id="missionPanel" class="tab-content">
+  <div id="missionContent"></div>
 </div>
 
 <!-- TAB GREMI -->
-<div id="tab-gremi" class="tab-content">
+<div id="gremioPanel" class="tab-content">
   <div class="sub-tabs">
-    <button class="sub-tab-btn" onclick="mostrarGremi('personatges', event)">Personatges</button>
-    <button class="sub-tab-btn active" onclick="mostrarBibliotecaTab('diccionari', event)">Biblioteca</button>
-    <button class="sub-tab-btn" onclick="mostrarBibliotecaTab('minijocs', event)">Minijocs</button>
+    <button class="sub-tab-btn" id="btnGremio" onclick="mostrarGremi('personatges', event)">Personatges</button>
+    <button class="sub-tab-btn active" id="btnBiblioteca" onclick="mostrarBibliotecaTab('diccionari', event)">Biblioteca</button>
+    <button class="sub-tab-btn" id="btnMinijocs" onclick="mostrarBibliotecaTab('minijocs', event)">Minijocs</button>
   </div>
-  <div id="gremi-contenidor"></div>
+  <div id="gremioContent"></div>
 </div>
 
 <!-- TAB LECTURA -->
-<div id="tab-lectura" class="tab-content">
-  <div id="lectura-contenidor"></div>
+<div id="lecturaPanel" class="tab-content">
+  <div id="lecturaContent"></div>
 </div>
 
 <!-- TAB TIPS -->
-<div id="tab-tips" class="tab-content">
-  <div id="tips-contenidor"></div>
+<div id="tipsPanel" class="tab-content">
+  <div id="tipsContent"></div>
 </div>
 
 <!-- TAB BOTIGA -->
-<div id="tab-botiga" class="tab-content">
-  <div class="capitol-grid" id="botiga-contenidor"></div>
+<div id="botigaPanel" class="tab-content">
+  <div class="capitol-grid" id="botigaContent"></div>
 </div>
 
 <!-- NAV BAR -->
 <div class="nav">
-  <div class="nav-item" onclick="canviarTab('mapa', event)">
+  <div class="nav-item active" onclick="canviarTab('menuPrincipal', event)">
     <span class="nav-icon">🗺️</span>
     <span id="tab-mapa-txt">Món</span>
   </div>
-  <div class="nav-item active" onclick="canviarTab('missio', event)">
+  <div class="nav-item" onclick="canviarTab('missionPanel', event)">
     <span class="nav-icon">📜</span>
     <span id="tab-missio-txt">Missió</span>
   </div>
-  <div class="nav-item" onclick="canviarTab('gremi', event)">
+  <div class="nav-item" onclick="canviarTab('gremioPanel', event)">
     <span class="nav-icon">🏰</span>
     <span id="tab-gremi-txt">Gremi</span>
   </div>
-  <div class="nav-item" onclick="canviarTab('lectura', event)">
+  <div class="nav-item" onclick="canviarTab('lecturaPanel', event)">
     <span class="nav-icon">📖</span>
     <span id="tab-lectura-txt">Lectura</span>
   </div>
-  <div class="nav-item" onclick="canviarTab('tips', event)">
+  <div class="nav-item" onclick="canviarTab('tipsPanel', event)">
     <span class="nav-icon">💡</span>
     <span id="tab-tips-txt">Tips</span>
   </div>
-  <div class="nav-item" onclick="canviarTab('botiga', event)">
+  <div class="nav-item" onclick="canviarTab('botigaPanel', event)">
     <span class="nav-icon">🛒</span>
     <span id="tab-botiga-txt">Botiga</span>
   </div>
@@ -91,6 +91,7 @@
 <script src="data/lectura-generator.js"></script>
 <script src="data/tips-content.js"></script>
 <script src="data/tips-generator.js"></script>
+<script src="main.js"></script>
 
 </body>
 </html>
