@@ -216,7 +216,7 @@ function actualitzarUI() {
 }
 
 function mostrarGremi(tab, e) {
-  document.querySelectorAll('#tab-gremi.sub-tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('#tab-gremi .sub-tab-btn').forEach(b => b.classList.remove('active'));
   if(e) e.target.classList.add('active');
   const cont = document.getElementById('gremi-contenidor');
   if(!cont) return;
@@ -255,7 +255,7 @@ function mostrarGremi(tab, e) {
 }
 
 function mostrarBibliotecaTab(tab, e) {
-  document.querySelectorAll('#gremi-contenidor.sub-tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('#gremi-contenidor .sub-tab-btn').forEach(btn => btn.classList.remove('active'));
   if(e) e.target.classList.add('active');
   const cont = document.getElementById('biblioteca-content');
   if(!cont) return;
@@ -322,7 +322,7 @@ function generarTextLectura(nivell, lang) {
   let parts = [];
   parts.push(rand(D.intros));
   for(let i=0; i<3; i++) {
-    let frase = rand(D.subjectes) + " " + rand(D.accions) + " + rand(D.objectes) + " + rand(D.llocs) + ".";
+    let frase = rand(D.subjectes) + " + rand(D.accions) + " + rand(D.objectes) + " + rand(D.llocs) + ".";
     parts.push(frase);
   }
   parts.push(rand(D.connectors) + ", " + rand(D.subjectes).toLowerCase() + " + rand(D.estats) + ".");
