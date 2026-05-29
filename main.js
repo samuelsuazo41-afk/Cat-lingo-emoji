@@ -1,4 +1,4 @@
-// main.js - RPG Cròniques de Catalunya - AMB LECTURA I TIPS COM A PESTANYES
+// main.js - RPG Cròniques de Catalunya - AMB LECTURA I TIPS INTEGRATS
 
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -24,7 +24,6 @@ let FRASES_MINIJOC = [];
 let CATEGORIES_EMOJI = {};
 let EMOJIS_JUGABLES = [];
 
-// Starter pack
 const EMOJIS_STARTER = [
   {emoji: "😀", nom_cat: "Somriure", categoria: "emocio", para_frases: ["riu", "content"], genere: "m"},
   {emoji: "😊", nom_cat: "Feliç", categoria: "emocio", para_frases: ["feliç", "content"], genere: "m"},
@@ -66,63 +65,44 @@ const PERSONATGES_JUGADOR = [
 
 const NIVELL_MINIJOC = {minEmojis: 2, maxEmojis: 5, nivelActual: parseInt(localStorage.getItem('cat_nivell_minijoc')) || 1};
 
-function vibrar() {
-  if (navigator.vibrate) navigator.vibrate(20);
-}
-
-function quitarSkinTone(emoji) {
-  return emoji.replace(/[\u{1F3FB}-\u{1F3FF}]/u, '');
-}
+function vibrar() { if (navigator.vibrate) navigator.vibrate(20); }
+function quitarSkinTone(emoji) { return emoji.replace(/[\u{1F3FB}-\u{1F3FF}]/u, ''); }
 
 function mostrarModal(text) {
   document.getElementById('modalText').textContent = text;
   document.getElementById('modal').classList.remove('hidden');
 }
-
-function tancarModal() {
-  document.getElementById('modal').classList.add('hidden');
-}
+function tancarModal() { document.getElementById('modal').classList.add('hidden'); }
 
 async function carregarDades() {
   try {
     const res = await fetch('./data/biblioteca_emojis.json');
     BIBLIOTECA_EMOJIS_BASE = await res.json();
-  } catch(err) {
-    BIBLIOTECA_EMOJIS_BASE = [];
-  }
+  } catch(err) { BIBLIOTECA_EMOJIS_BASE = []; }
 
   let packsComprats = [];
   try {
     const resBotiga = await fetch('./data/botiga_emojis.json');
     const dataBotiga = await resBotiga.json();
     packsComprats = dataBotiga.filter(p => estat.compres.includes(p.id));
-  } catch(err) {
-    packsComprats = [];
-  }
+  } catch(err) { packsComprats = []; }
 
   EMOJIS_JUGABLES = [...EMOJIS_STARTER,...BIBLIOTECA_EMOJIS_BASE];
-  packsComprats.forEach(pack => {
-    EMOJIS_JUGABLES = EMOJIS_JUGABLES.concat(pack.emojis);
-  });
-
+  packsComprats.forEach(pack => { EMOJIS_JUGABLES = EMOJIS_JUGABLES.concat(pack.emojis); });
   EMOJIS_JUGABLES = EMOJIS_JUGABLES.filter((v,i,a)=>a.findIndex(t=>(t.emoji===v.emoji))===i);
 
   CATEGORIES_EMOJI = {};
   EMOJIS_JUGABLES.forEach(e => {
     const cat = e.categoria || 'altres';
     if (!CATEGORIES_EMOJI[cat]) CATEGORIES_EMOJI[cat] = [];
-    if (!CATEGORIES_EMOJI[cat].includes(e.emoji)) {
-      CATEGORIES_EMOJI[cat].push(e.emoji);
-    }
+    if (!CATEGORIES_EMOJI[cat].includes(e.emoji)) { CATEGORIES_EMOJI[cat].push(e.emoji); }
   });
 
   try {
     const res = await fetch('./data/minijoc_frases.json');
     const data = await res.json();
     FRASES_MINIJOC = data.frases;
-  } catch(err) {
-    FRASES_MINIJOC = [];
-  }
+  } catch(err) { FRASES_MINIJOC = []; }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -161,14 +141,10 @@ function carregarMapa() {
   const mapaDiv = document.getElementById('mapa');
   if (!mapaDiv) return;
   mapaDiv.innerHTML = `<div style="text-align:center; padding:40px; color:#888;">
-    <h3>🗺️ Mapa</h3>
-    <p>Ara mateix el joc se centra en el minijoc i la biblioteca.</p>
+    <h3>🗺️ Mapa</h3><p>Ara mateix el joc se centra en el minijoc i la biblioteca.</p>
   </div>`;
 }
-
-function carregarMissioTab() {
-  novaFraseMinijoc();
-}
+function carregarMissioTab() { novaFraseMinijoc(); }
 
 function guardarEstat() {
   localStorage.setItem('cat_monedes', estat.monedes);
@@ -177,12 +153,11 @@ function guardarEstat() {
   localStorage.setItem('cat_personatge', JSON.stringify(estat.personatge));
   localStorage.setItem('cat_nivell_minijoc', NIVELL_MINIJOC.nivelActual);
 }
-
 function actualitzarUI() {
   document.getElementById('coins').innerHTML = `🪙 ${estat.monedes} <span id="text-monedes">${LANG.monedes}</span>`;
 }
 
-// GREMI - Només Biblioteca, Minijoc, Personatges
+// GREMI
 function mostrarGremi(tab, e) {
   document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
   if(e) e.target.classList.add('active');
@@ -209,10 +184,8 @@ function mostrarGremi(tab, e) {
       </div>`;
     }
   }
-
-  if(tab === 'biblioteca') {
-    mostrarBibliotecaTab('diccionari');
-  }
+  if(tab === 'biblioteca') { mostrarBibliotecaTab('diccionari'); }
+  if(tab === 'minijocs') { mostrarBibliotecaTab('minijocs'); }
 }
 
 function mostrarBibliotecaTab(tab, e) {
@@ -267,7 +240,7 @@ function mostrarBibliotecaTab(tab, e) {
   }
 }
 
-// PESTANYA LECTURA - Separada del Gremi
+// PESTANYA LECTURA
 function mostrarLecturaTab() {
   const cont = document.getElementById('lectura-contenidor');
   cont.innerHTML = `
@@ -278,17 +251,12 @@ function mostrarLecturaTab() {
     <button class="btn" onclick="generarLectura()" style="width:100%;">${LANG.lectura_btn}</button>
   `;
 }
-
 function generarLectura() {
-  if (typeof generarTextLectura === 'function') {
-    const text = generarTextLectura(1, idioma);
-    document.getElementById('lectura-content').textContent = text;
-  } else {
-    document.getElementById('lectura-content').textContent = "Error: falta lectura-generator.js";
-  }
+  const text = generarTextLectura(1, idioma);
+  document.getElementById('lectura-content').textContent = text;
 }
 
-// PESTANYA TIPS - Separada del Gremi
+// PESTANYA TIPS
 function mostrarTipsTab() {
   const cont = document.getElementById('tips-contenidor');
   cont.innerHTML = `
@@ -299,14 +267,265 @@ function mostrarTipsTab() {
     <button class="btn" onclick="generarTip()" style="width:100%;">${LANG.tips_btn}</button>
   `;
 }
-
 function generarTip() {
-  if (typeof generarTipGramatica === 'function') {
-    const tip = generarTipGramatica(idioma);
-    document.getElementById('tips-content').textContent = tip;
-  } else {
-    document.getElementById('tips-content').textContent = "Error: falta tips-generator.js";
+  const tip = generarTipGramatica(idioma);
+  document.getElementById('tips-content').textContent = tip;
+}
+
+// MINIJOC
+function novaFraseMinijoc() {
+  if (!FRASES_MINIJOC || FRASES_MINIJOC.length === 0) return;
+  const emojisDisponibles = EMOJIS_JUGABLES;
+  if (emojisDisponibles.length < 2) {
+    document.getElementById('minijoc-frase').textContent = "Error: no hi ha emojis per jugar.";
+    document.getElementById('minijoc-emojis').innerHTML = '';
+    return;
   }
+  const plantilla = FRASES_MINIJOC[Math.floor(Math.random() * FRASES_MINIJOC.length)];
+  const { text, solucio } = generarFraseDinamica(plantilla, emojisDisponibles.map(e => e.emoji));
+  estat.minijoc.fraseObjectiu = { text, solucio };
+  estat.minijoc.emojisTriats = [];
+  document.getElementById('minijoc-frase').textContent = text;
+  document.getElementById('minijoc-triats').textContent = '';
+  document.getElementById('minijoc-feedback').innerHTML = '';
+  document.getElementById('minijoc-nivell').textContent = `Nivell ${NIVELL_MINIJOC.nivelActual} - ${solucio.length} emojis`;
+  generarEmojisParaFraseCorta({solucio});
+}
+function generarEmojisParaFraseCorta(frase) {
+  const emojisJugador = EMOJIS_JUGABLES.map(e => e.emoji);
+  const emojisFalsos = emojisJugador
+.filter(e =>!frase.solucio.some(eSol => quitarSkinTone(e) === quitarSkinTone(eSol)))
+.sort(() => 0.5 - Math.random()).slice(0, 10 - frase.solucio.length);
+  const emojisAMostrar = [...frase.solucio,...emojisFalsos].sort(() => 0.5 - Math.random());
+  estat.minijoc.emojisDisponibles = emojisAMostrar;
+  let html = '';
+  emojisAMostrar.forEach((emoji, i) => {
+    const emojiData = EMOJIS_JUGABLES.find(e => quitarSkinTone(e.emoji) === quitarSkinTone(emoji));
+    html += `<div class="emoji-item" onclick="triarEmojiMinijoc(${i})" style="cursor:pointer;">
+      <div class="emoji-large">${emoji}</div>
+      <div class="emoji-name">${emojiData?.nom_cat || ''}</div>
+    </div>`;
+  });
+  document.getElementById('minijoc-emojis').innerHTML = html;
+}
+function obtenirArticle(emoji) {
+  const emojiData = EMOJIS_JUGABLES.find(e => quitarSkinTone(e.emoji) === quitarSkinTone(emoji));
+  if (!emojiData ||!emojiData.genere) return emojiData?.nom_cat || emoji;
+  const nom = emojiData.nom_cat;
+  const article = emojiData.genere === 'f'? 'La' : 'El';
+  return `${article} ${nom}`;
+}
+function generarFraseDinamica(plantilla, emojisJugador) {
+  let text = plantilla.text;
+  let solucio = [];
+  for (const cat of plantilla.categories) {
+    const emojisDisponibles = CATEGORIES_EMOJI[cat].filter(eBase =>
+      emojisJugador.some(eJug => quitarSkinTone(eJug) === quitarSkinTone(eBase))
+    );
+    if (!emojisDisponibles || emojisDisponibles.length === 0) {
+      return generarFraseDinamica(FRASES_MINIJOC[Math.floor(Math.random() * FRASES_MINIJOC.length)], emojisJugador);
+    }
+    const emojiElegit = emojisDisponibles[Math.floor(Math.random() * emojisDisponibles.length)];
+    text = text.replace(`{${cat}}`, obtenirArticle(emojiElegit));
+    solucio.push(emojiElegit);
+  }
+  return { text, solucio };
+}
+function triarEmojiMinijoc(index) {
+  vibrar();
+  const emoji = estat.minijoc.emojisDisponibles[index];
+  const maxEmojis = estat.minijoc.fraseObjectiu.solucio.length;
+  if (estat.minijoc.emojisTriats.length < maxEmojis) {
+    estat.minijoc.emojisTriats.push(emoji);
+    actualitzarTriatsMinijoc();
+  }
+}
+function actualitzarTriatsMinijoc() {
+  const div = document.getElementById('minijoc-triats');
+  div.textContent = estat.minijoc.emojisTriats.join(' ');
+}
+function comprovarMinijoc() {
+  vibrar();
+  const frase = estat.minijoc.fraseObjectiu;
+  const solucioCorrecta = frase.solucio.map(quitarSkinTone).join('');
+  const triatsCorrecte = estat.minijoc.emojisTriats.map(quitarSkinTone).join('');
+  const esCorrecte = solucioCorrecta === triatsCorrecte;
+  const feedback = document.getElementById('minijoc-feedback');
+  if (esCorrecte) {
+    feedback.innerHTML = `<p style="color:#4CAF50; font-weight:bold;">${LANG.correcte}</p>`;
+    estat.monedes += 5;
+    actualitzarUI();
+    guardarEstat();
+  } else {
+    feedback.innerHTML = `<p style="color:#f44336; font-weight:bold;">${LANG.incorrecte} ${frase.solucio.join(' ')}</p>`;
+  }
+  setTimeout(() => novaFraseMinijoc(), 2000);
+}
+
+function seleccionarPersonatge(id) {
+  const p = PERSONATGES_JUGADOR.find(x => x.id === id);
+  const nomInput = document.getElementById('nom-jugador')?.value.trim();
+  estat.personatge = { id: p.id, emoji: p.emoji, nom: nomInput || 'Jugador', nom_cat: p.nom };
+  guardarEstat();
+  mostrarGremi('personatges', null);
+}
+function canviarPersonatge() {
+  estat.personatge = null;
+  guardarEstat();
+  mostrarGremi('personatges', null);
+}
+
+// BOTIGA
+async function carregarBotiga() {
+  const cont = document.getElementById('botiga-contenidor');
+  try {
+    const res = await fetch('./data/botiga_emojis.json');
+    const data = await res.json();
+    estat.packs_botiga = data;
+    renderitzarBotiga();
+  } catch(e) {
+    console.error(e);
+    cont.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#f44336;">Error: ${e.message}</div>`;
+  }
+}
+function renderitzarBotiga() {
+  const cont = document.getElementById('botiga-contenidor');
+  if (!cont ||!estat.packs_botiga) return;
+  cont.innerHTML = '';
+  estat.packs_botiga.forEach(pack => {
+    const comprat = estat.compres.includes(pack.id);
+    const card = document.createElement('div');
+    card.className = 'capitol-card';
+    card.innerHTML = `
+      <div class="capitol-icona">🎁</div>
+      <h3>${pack.nom}</h3>
+      <p style="color:var(--text-sec); margin:8px 0;">${pack.descripcio}</p>
+      <p style="font-size:24px;">${pack.emojis.map(e => e.emoji).join(' ')}</p>
+      <button class="btn ${comprat? 'btn-sec' : ''}"
+              onclick="comprarPack('${pack.id}', ${pack.preu}, event)"
+              ${comprat? 'disabled' : ''}>
+        ${comprat? LANG.comprat : `🪙 ${pack.preu}`}
+      </button>
+    `;
+    cont.appendChild(card);
+  });
+}
+async function comprarPack(id, preu, event) {
+  if (event) event.stopPropagation();
+  if (estat.monedes < preu) {
+    mostrarModal(LANG.no_prou_monedes);
+    return;
+  }
+  vibrar();
+  estat.monedes -= preu;
+  estat.compres.push(id);
+  const pack = estat.packs_botiga.find(p => p.id === id);
+  if (pack) {
+    pack.emojis.forEach(e => {
+      if (!estat.emojisDesbloquejats.includes(e.emoji)) {
+        estat.emojisDesbloquejats.push(e.emoji);
+      }
+    });
+    await carregarDades();
+  }
+  NIVELL_MINIJOC.nivelActual = Math.min(NIVELL_MINIJOC.nivelActual + 1, NIVELL_MINIJOC.maxEmojis);
+  guardarEstat();
+  actualitzarUI();
+  renderitzarBotiga();
+  mostrarModal("Pack desbloquejat!");
+}
+
+// ============ GENERADORS INTEGRATS ============
+
+// LECTURA CONTENT
+const LECTURA_CONTENT = {
+ 1: {
+    subjectes: ["El gat", "La noia", "El nen", "La casa", "El gos", "La mare", "El pare", "La nena", "El llibre", "La taula", "El sol", "La lluna", "La música", "El teatre", "La flor", "El cotxe", "La platja", "El parc", "L’escola", "El carrer"],
+    accions: ["menja", "llegeix", "corre", "dorm", "juga", "veu", "canta", "camina", "salta", "riu", "parla", "escolta", "mira", "agafa", "balla", "pinta", "escriu", "neteja", "cuina", "neda"],
+    objectes: ["una poma", "un llibre", "una cançó", "una història", "a casa", "al parc", "amb alegria", "tranquil·lament", "bé", "ràpid", "sempre", "avui", "cada dia", "amb cura", "junt"],
+    llocs: ["al jardí", "a l’escola", "a Girona", "a la Costa Brava", "a casa", "al carrer", "al parc", "a la platja", "al bosc", "al teatre", "al museu", "a la ciutat"],
+    estats: ["és feliç", "està cansat", "està content", "riu", "és bonic", "és tranquil", "està bé", "somriu", "descansa", "és divertit"],
+    connectors: ["Després", "A la tarda", "Al matí", "Més tard", "També", "I", "Ara", "Ahir", "Avui", "Demà"],
+    intros: ["Avui és un bon dia.", "Aquesta és una història curta.", "Mira què passa a Girona.", "Comença la història.", "Avui aprenem algo nou."],
+    tancaments: ["Fi de la història.", "Així acaba.", "Fins demà.", "Segueix practicant!", "Molt bé!", "Bon treball!"]
+  },
+ 2: {
+    subjectes: ["La família", "El professor", "Els amics", "La ciutat de Girona", "El mercat", "El veí", "La Costa Brava", "L’escola", "El teatre", "La música catalana", "La llegenda", "La festa major", "El calçot", "El castell"],
+    accions: ["explica", "organitza", "treballa", "cuina", "camina", "prepara", "ensenya", "escriu", "llegeix", "balla", "neteja", "pinta", "construeix", "visita", "celebra"],
+    objectes: ["una història", "el sopar de calçots", "una cançó tradicional", "una llegenda", "amb cura", "cada setmana", "sovint", "amb alegria", "tranquil·lament", "bé", "junt", "a poc a poc"],
+    llocs: ["a la plaça de Girona", "a l’oficina", "al barri vell", "a l’escola", "a la Costa Brava", "al restaurant", "al museu Dalí", "a la biblioteca", "al teatre", "a la platja"],
+    estats: ["està orgullós", "és important", "és necessari", "riu fort", "està cansat", "és bonic", "és interessant", "és tradicional", "és especial", "és divertit"],
+    connectors: ["Mentrestant", "Per això", "A més", "Després de dinar", "Aquell dia", "A la nit", "Al final", "També", "I després", "Durant la festa"],
+    intros: ["Aquesta història passa a Girona.", "Avui parlem de la Costa Brava.", "Comença un nou dia de festa.", "Aquesta setmana celebrem algo.", "Mira aquesta llegenda catalana."],
+    tancaments: ["La història continua demà.", "Així va anar.", "Fins la propera.", "Bon treball!", "Segueix així!", "Molt bé!"]
+  },
+ 3: {
+    subjectes: ["La societat catalana", "El govern", "La cultura", "L’astronomia", "La història", "La tecnologia", "L’art", "La ciència", "El teatre clàssic", "La música modal", "El turisme", "La Costa Brava", "El patrimoni"],
+    accions: ["transforma", "analitza", "desenvolupa", "influencia", "demostra", "qüestiona", "explica", "compara", "proposa", "avalua", "considera", "presenta", "celebra", "conserva"],
+    objectes: ["el futur", "les idees", "el canvi", "amb profunditat", "constantment", "amb claredat", "amb èxit", "sempre", "en detall", "a fons", "amb cura", "la tradició"],
+    llocs: ["en aquest context", "a nivell global", "dins la comunitat", "en aquests anys", "a Girona", "a la Costa Brava", "en aquest cas", "a nivell local", "en aquest moment"],
+    estats: ["és complex", "és necessari", "és evident", "és possible", "és interessant", "és important", "és clar", "és difícil", "és útil", "és nou", "és tradicional"],
+    connectors: ["Per tant", "Tanmateix", "Així doncs", "En conseqüència", "No obstant això", "D’altra banda", "A més a més", "Per exemple", "En resum"],
+    intros: ["Analitzem un fet important de Catalunya.", "Aquesta reflexió ens porta a Girona.", "Comencem amb una idea clau sobre la Costa Brava.", "Avui parlem d’astronomia i art."],
+    tancaments: ["Aquesta és la conclusió.", "Fins aquí la lectura.", "Segueix aprenent.", "Molt bé!", "Excel·lent treball!"]
+  }
+};
+
+function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+function generarTextLectura(nivell, lang) {
+  const D = LECTURA_CONTENT[nivell];
+  let parts = [];
+  parts.push(rand(D.intros));
+  for(let i=0; i<3; i++) {
+    let frase = rand(D.subjectes) + " + rand(D.accions) + " + rand(D.objectes) + " + rand(D.llocs) + ".";
+    parts.push(frase);
+  }
+  parts.push(rand(D.connectors) + ", " + rand(D.subjectes).toLowerCase() + " + rand(D.estats) + ".");
+  parts.push(rand(D.tancaments));
+  return parts.join(" ");
+}
+
+// TIPS CONTENT
+const TIPS_CONTENT = {
+  ca: [
+    "En català, l'article definit 'el' es contrau amb 'a' i forma 'al'. Ex: Vaig al parc.",
+    "El passat perifràstic s'usa molt: 'vaig menjar' en comptes de 'menjí'.",
+    "Els pronoms febles van davant del verb: 'me'l dono'.",
+    "El plural femení acaba en -es: la casa, les cases.",
+    "Per dir l'hora: 'És la una' però 'Són les dues'.",
+    "Els dies de la setmana no porten majúscula en català.",
+    "El diminutiu -et/-eta: gos > gosset, casa > caseta.",
+    "La preposició 'de' + article: de + el = del. Ex: el llibre del nen.",
+    "Els colors concorden en gènere i nombre: camisa blanca, camises blanques.",
+    "Per preguntar: poses 'que' al final. Ex: Vens, que?",
+    "El català té dièresi: veïnat, lingüística.",
+    "Els numerals 11-15 són irregulars: onze, dotze, tretze, catorze, quinze.",
+    "Els possessius van davant: la meva casa, els teus llibres.",
+    "Els verbs 'ser' i 'estar' són diferents: Sóc català, Estic cansat.",
+    "Els comparatius: més... que, menys... que, tan... com."
+  ],
+  es: [
+    "En catalán, el artículo definido 'el' se contrae con 'a' y forma 'al'. Ej: Vaig al parc.",
+    "El pasado perifrástico se usa mucho: 'vaig menjar' en lugar de 'menjí'.",
+    "Los pronombres débiles van delante del verbo: 'me'l dono'.",
+    "El plural femenino acaba en -es: la casa, les cases.",
+    "Para decir la hora: 'És la una' pero 'Són les dues'.",
+    "Los días de la semana no llevan mayúscula en catalán.",
+    "El diminutivo -et/-eta: gos > gosset, casa > caseta.",
+    "La preposición 'de' + artículo: de + el = del. Ej: el libro del niño.",
+    "Los colores concuerdan en género y número: camisa blanca, camises blanques.",
+    "Para preguntar: pones 'que' al final. Ej: Vens, que?",
+    "El catalán tiene diéresis: veïnat, lingüística.",
+    "Los numerales 11-15 son irregulares: onze, dotze, tretze, catorze, quinze.",
+    "Los posesivos van delante: la meva casa, els teus llibres.",
+    "Los verbos 'ser' y 'estar' son diferentes: Sóc català, Estic cansat.",
+    "Los comparativos: més... que, menys... que, tan... com."
+  ]
+};
+
+function generarTipGramatica(lang) {
+  const tips = TIPS_CONTENT || TIPS_CONTENT['ca'];
+  return tips[Math.floor(Math.random() * tips.length)];
 }
 
 // MINIJOC
@@ -409,12 +628,7 @@ function comprovarMinijoc() {
 function seleccionarPersonatge(id) {
   const p = PERSONATGES_JUGADOR.find(x => x.id === id);
   const nomInput = document.getElementById('nom-jugador')?.value.trim();
-  estat.personatge = {
-    id: p.id,
-    emoji: p.emoji,
-    nom: nomInput || 'Jugador',
-    nom_cat: p.nom
-  };
+  estat.personatge = { id: p.id, emoji: p.emoji, nom: nomInput || 'Jugador', nom_cat: p.nom };
   guardarEstat();
   mostrarGremi('personatges', null);
 }
