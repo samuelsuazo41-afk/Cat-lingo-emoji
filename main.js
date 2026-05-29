@@ -86,8 +86,13 @@ const NIVELL_MINIJOC = {minEmojis: 2, maxEmojis: 5, nivelActual: parseInt(localS
 
 function vibrar() { if (navigator.vibrate) navigator.vibrate(20); }
 function quitarSkinTone(emoji) { return emoji.replace(/[\u{1F3FB}-\u{1F3FF}]/u, ''); }
-function mostrarModal(text) { document.getElementById('modalText').textContent = text; document.getElementById('modal').classList.remove('hidden'); }
-function tancarModal() { document.getElementById('modal').classList.add('hidden'); }
+function mostrarModal(text) { 
+  document.getElementById('modalText').textContent = text; 
+  document.getElementById('modal').classList.add('active'); 
+}
+function tancarModal() { 
+  document.getElementById('modal').classList.remove('active'); 
+}
 
 async function carregarDades() {
   try {
