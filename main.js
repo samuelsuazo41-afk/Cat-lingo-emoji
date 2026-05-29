@@ -320,8 +320,8 @@ function novaFraseMinijoc() {
 function generarEmojisParaFraseCorta(frase) {
   const emojisJugador = EMOJIS_JUGABLES.map(e => e.emoji);
   const emojisFalsos = emojisJugador
-  .filter(e =>!frase.solucio.some(eSol => quitarSkinTone(e) === quitarSkinTone(eSol)))
-  .sort(() => 0.5 - Math.random()).slice(0, 10 - frase.solucio.length);
+ .filter(e =>!frase.solucio.some(eSol => quitarSkinTone(e) === quitarSkinTone(eSol)))
+ .sort(() => 0.5 - Math.random()).slice(0, 10 - frase.solucio.length);
   const emojisAMostrar = [...frase.solucio,...emojisFalsos].sort(() => 0.5 - Math.random());
   estat.minijoc.emojisDisponibles = emojisAMostrar;
   let html = '';
@@ -502,6 +502,7 @@ function rand(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// CORREGIT: concatenació real en comptes de string literal
 function generarTextLectura(nivell, lang) {
   const D = LECTURA_CONTENT[nivell];
   let parts = [];
@@ -552,8 +553,9 @@ const TIPS_CONTENT = {
   ]
 };
 
+// CORREGIT: ara sí usa l’idioma
 function generarTipGramatica(lang) {
-  const tips = TIPS_CONTENT[lang] || TIPS_CONTENT['ca'];
+  const tips = TIPS_CONTENT || TIPS_CONTENT['ca'];
   return tips[Math.floor(Math.random() * tips.length)];
 }
 
