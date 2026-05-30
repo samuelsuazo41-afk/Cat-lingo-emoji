@@ -376,7 +376,10 @@ const BANCO_VOCAB = {
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Maria també", "En Joan també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["llum tènue", "silenci", "curiositat", "calma", "brillantor", "pau"],
+      detalls: ["olor de paper vell", "veu baixa", "brillantor del vidre", "soroll suau", "resplendor blanca"],
+      tancaments: ["ara sap que aprendre també és un plaer", "va descobrir que la ciència està a tot arreu", "va entendre que preguntar obre portes"]
     },
     l_esport_facil: {
       persones: ["En Pau", "La Laura", "En Marc", "La Sílvia", "En Roger", "La Mireia", "En Oriol", "La Clàudia"],
@@ -387,18 +390,24 @@ const BANCO_VOCAB = {
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "En Pau també", "La Laura també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["aire fresc", "sol brillant", "vent suau", "energia", "alegria", "ritme"],
+      detalls: ["olor de gespa mullada", "soroll de pilotes", "so de l’aigua", "riu de gent", "respiració tranquila"],
+      tancaments: ["va tornar a casa amb el cos content", "va entendre que moure’s també cura", "va guardar aquell moment per sempre"]
     },
     la_festa_major: {
       persones: ["La Núria", "En Jordi", "L'Eva", "En Luis", "La Paula", "En Bernat", "La Gisela", "En Martí"],
-      llocs: ["plaça", "carrer", "parc", "barri", "escenari", "carpa", "església", "avnguda"],
+      llocs: ["plaça", "carrer", "parc", "barri", "escenari", "carpa", "església", "avinguda"],
       objectes: ["música", "ball", "castell", "gegant", "capgròs", "banderola", "foc", "dolç", "tambor", "corona", "sardana", "caramels"],
       temps: ["avui", "aquest cap de setmana", "ahir", "ara", "a la nit", "diumenge", "demà", "tot el dia"],
-      verbs: ["balla", "mira", "menja", "canta", "riu", "va", "juga", "celebra", "surt", "acompanha", "disfruta", "aplaudix"],
+      verbs: ["balla", "mira", "menja", "canta", "riu", "va", "juga", "celebra", "surt", "acompanya", "disfruta", "aplaudix"],
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Núria també", "En Jordi també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["colors", "alegria", "foc", "llum", "soroll alegre", "vida"],
+      detalls: ["olor de castanyes", "so de gralles", "riu de gent", "brillantor dels focs", "veus llunyanes"],
+      tancaments: ["va tornar a casa amb el cor content", "va guardar aquell record per sempre", "va saber que tornarà l’any que ve"]
     },
     el_dinar_català: {
       persones: ["La Marta", "En David", "La Carla", "En Toni", "La Júlia", "En Ferran", "La Mar", "En Sergi"],
@@ -409,7 +418,10 @@ const BANCO_VOCAB = {
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Marta també", "En David també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["olor de casa", "calor", "pau", "gust dolç", "sabor salat", "calma"],
+      detalls: ["olor de pa torrat", "gust de tomàquet fresc", "so de coberteria", "color roig viu", "gust dolç al final"],
+      tancaments: ["va acabar amb un somriure ple", "va entendre que dinar bé també és estimar-se", "va guardar el gust per demà"]
     }
   },
   a2: {
@@ -422,18 +434,24 @@ const BANCO_VOCAB = {
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Marta també", "En David també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["polsegós", "silenci antic", "llum groga", "misteri", "pau", "respecte"],
+      detalls: ["olor de pergamí vell", "so de passes llunyanes", "llum que entra per la finestra", "text quasi esborrat"],
+      tancaments: ["va entendre que el passat també parla", "va sortir amb una pregunta nova al cap", "va sentir que formava part d’aquella història"]
     },
     el_cine_i_musica: {
       persones: ["En Alex", "La Núria", "En Toni", "La Sílvia", "En Pol", "La Berta", "En Marc", "La Laura"],
       llocs: ["cinema", "teatre", "sala", "casa", "escenari", "auditori", "estudi", "festival"],
-      objectes: ["pel·lícula", "cancó", "guitarra", "entrada", "palomites", "refresc", "cartell", "altaveu", "micròfon", "pantalla", "butaca", "escena"],
+      objectes: ["pel·lícula", "cançó", "guitarra", "entrada", "palomites", "refresc", "cartell", "altaveu", "micròfon", "pantalla", "butaca", "escena"],
       temps: ["ahir", "avui", "demà", "aquest cap de setmana", "a la nit", "a la tarda", "recentment", "sovint"],
       verbs: ["mira", "escolta", "toca", "canta", "compra", "balla", "riuen", "aplaudixen", "grava", "edita", "assaja", "estrena"],
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "En Alex també", "La Núria també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["foscor", "so envolupant", "llum de pantalla", "emoció", "ritme", "magia"],
+      detalls: ["olor de palomites", "so del començament", "llum que baixa", "aplaudiment final"],
+      tancaments: ["va sortir taral·lejant la cançó", "va guardar aquella escena al cap", "va entendre per què li agrada tant"]
     },
     la_gastronomia: {
       persones: ["En Pere", "La Júlia", "En Marc", "La Laura", "En Ferran", "La Mar", "En Sergi", "La Clàudia"],
@@ -444,18 +462,24 @@ const BANCO_VOCAB = {
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "En Pere també", "La Júlia també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["olor de forn", "gust dolç", "calor de cuina", "color viu", "sabor intens", "pau"],
+      detalls: ["gust de crema cremada", "olor de julivert fresc", "color daurat", "textura suau"],
+      tancaments: ["va acabar llepant-se els dits", "va prometre repetir el plat", "va entendre que menjar bé és una festa"]
     },
     la_moda_i_estil: {
       persones: ["La Carla", "En Alex", "La Eva", "En David", "La Mireia", "En Oriol", "La Gisela", "En Martí"],
       llocs: ["botiga", "carrer", "casa", "mercat", "vestidor", "aparador", "desfilada", "armari"],
       objectes: ["camisa", "pantalons", "sabates", "barret", "bufanda", "bossa", "ulleres", "rellotge", "jaqueta", "faldilla", "cinturó", "mirall"],
       temps: ["avui", "ahir", "demà", "aquest mes", "a la tarda", "diumenge", "sovint", "ara"],
-      verbs: ["compra", "prova", "posa", "mira", "triar", "combina", "porta", "regala", "tasta", "canvia", "luxeix", "neteja"],
+      verbs: ["compra", "prova", "posa", "mira", "tria", "combina", "porta", "regala", "canvia", "lluix", "neteja", "ordena"],
       conectores: ["Després", "Llavors", "A més", "Però", "Així que", "Finalment", "També", "Quan"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Carla també", "En Alex també"],
-      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"]
+      causa_efecte: ["Per això", "Així que", "Per tant", "Com que", "Però", "Tot i que"],
+      atmosfera: ["llum clara", "color suau", "estil net", "ordre", "elegància", "calma"],
+      detalls: ["reflex al mirall", "teixit suau al tacte", "color que combina", "brillantor del metall"],
+      tancaments: ["va sortir amb un somriure nou", "va entendre que vestir-se també és parlar", "va guardar aquella peça per ocasions especials"]
     }
   },
   b1: {
@@ -468,7 +492,10 @@ const BANCO_VOCAB = {
       conectores: ["Tanmateix", "A més", "Però", "Així que", "Finalment", "També", "Quan", "Per tant"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Sofía també", "En Pere també"],
-      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"]
+      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"],
+      atmosfera: ["orgull", "respecte", "veu col·lectiva", "silenci solemne", "llum de tarda", "memòria"],
+      detalls: ["so de la sardana", "olor de rosa fresca", "veu que tremola", "silenci compartit"],
+      tancaments: ["va sentir que formava part de quelcom gran", "va guardar la rosa com un record", "va entendre per què tornava cada any"]
     },
     la_ciencia_i_tecnologia: {
       persones: ["En Alex", "La Marta", "En David", "La Núria", "En Pol", "La Berta", "En Marc", "La Laura"],
@@ -479,7 +506,10 @@ const BANCO_VOCAB = {
       conectores: ["Tanmateix", "A més", "Però", "Així que", "Finalment", "També", "Quan", "Per tant"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "En Alex també", "La Marta també"],
-      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"]
+      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"],
+      atmosfera: ["llum freda", "silenci concentrat", "ritme ràpid", "curiositat", "precisió", "descoberta"],
+      detalls: ["brillantor de la pantalla", "soroll suau del ventilador", "llum verda d’un led", "olor de plàstic nou"],
+      tancaments: ["va veure una porta nova oberta", "va entendre que preguntar val la pena", "va guardar el gràfic com un trofeu"]
     },
     el_cinema_català: {
       persones: ["La Carla", "En Jordi", "La Eva", "En Pere", "La Mireia", "En Oriol", "La Gisela", "En Martí"],
@@ -490,48 +520,29 @@ const BANCO_VOCAB = {
       conectores: ["Tanmateix", "A més", "Però", "Així que", "Finalment", "També", "Quan", "Per tant"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "La Carla també", "En Jordi també"],
-      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"]
+      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"],
+      atmosfera: ["llum tènue", "aplaudiment", "emoció continguda", "magia", "silenci abans de començar", "orgull"],
+      detalls: ["brillantor de la catifa", "so del micròfon", "llum dels focus", "murmuri del públic"],
+      tancaments: ["va sortir amb el nom a la boca", "va guardar el trofeu com un somni", "va entendre que contar històries cura"]
     },
     la_musica_i_festivals: {
       persones: ["En Toni", "La Júlia", "En Marc", "La Laura", "En Ferran", "La Mar", "En Sergi", "La Clàudia"],
       llocs: ["festival", "escenari", "plaça", "sala de concerts", "auditori", "carrer", "parc", "platja"],
-      objectes: ["concert", "grup", "cancó", "micròfon", "guitarra", "entrada", "públic", "so", "bateria", "baix", "teclat", "altaveu"],
+      objectes: ["concert", "grup", "cançó", "micròfon", "guitarra", "entrada", "públic", "so", "bateria", "baix", "teclat", "altaveu"],
       temps: ["aquest estiu", "la setmana passada", "avui", "demà", "a la nit", "diumenge", "sovint", "ara"],
       verbs: ["toca", "canta", "organitza", "assisteix", "grava", "balla", "acompanya", "compon", "assaja", "mescla", "presenta", "gaudeix"],
       conectores: ["Tanmateix", "A més", "Però", "Així que", "Finalment", "També", "Quan", "Per tant"],
       marcadors_temporals: ["Primer", "Després", "Llavors", "Mentre", "Quan", "Al final", "Ara", "Abans"],
       pronoms: ["Ell", "Ella", "Aquest", "Aquesta", "En Toni també", "La Júlia també"],
-      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"]
+      causa_efecte: ["Per tant", "Així que", "Com que", "Tot i que", "Encara que", "Malgrat que"],
+      atmosfera: ["so potent", "llum de colors", "energia", "ritme", "alegria", "complicitat"],
+      detalls: ["vibració del baix", "olor de gespa trepitjada", "llum que banya la cara", "veu que s’uneix al cor"],
+      tancaments: ["va marxar amb la cançó al cap", "va entendre que la música uneix", "va guardar aquell moment com un tresor"]
     }
   }
-};
+}; 
 
 function cargarLectura() {
-  let num = estat.progres.nivellActualMapa;
-  let nivell = mapaNivellALletra(num);
-  let contextos = BANCO_VOCAB[nivell];
-
-  if (!contextos) {
-    document.getElementById('lectura-contenidor').innerHTML =
-      "Encara no hi ha lectures d’aquest nivell. Puja de nivell per desbloquejar-les!";
-    return;
-  }
-
-  // Missatge inicial
-  document.getElementById('lectura-contenidor').innerHTML = `
-    <div style="text-align:center; padding:20px; opacity:0.8;">
-      <div style="font-size:48px; margin-bottom:10px;">📖</div>
-      <div style="font-size:16px; margin-bottom:15px;">
-        Nivell ${nivell.toUpperCase()} - ${Object.keys(contextos).length} temes disponibles
-      </div>
-      <div style="font-size:14px; opacity:0.7;">
-        Prem "Generar Lectura" per començar una història nova
-      </div>
-    </div>
-  `;
-}
-
-function generarLectura() {
   let num = estat.progres.nivellActualMapa;
   let nivell = mapaNivellALletra(num);
   let contextos = BANCO_VOCAB[nivell];
@@ -541,96 +552,86 @@ function generarLectura() {
     return;
   }
 
-  // 1. Escollim TEMA i PROTAGONISTA
+  // Agafem el nom del primer tema per mostrar-lo al missatge inicial
+  let primerTema = Object.keys(contextos)[0].replace(/_/g,' ').replace(/^la |^el /,'');
+
+  // Missatge inicial
+  document.getElementById('lectura-contenidor').innerHTML = `
+    <div style="text-align:center; padding:20px; opacity:0.8;">
+      <div style="font-size:48px; margin-bottom:10px;">📖</div>
+      <div style="font-size:16px; margin-bottom:10px;">
+        Nivell ${nivell.toUpperCase()} - ${primerTema}
+      </div>
+      <div style="font-size:14px; opacity:0.7;">
+        Prem "Generar Lectura" per començar una història nova
+      </div>
+    </div>
+  `;
+}
+
+
+  function generarLectura() {
+  if (estat.energia < 10) return mostrarModal(LANG.energy_low);
+  estat.energia -= 10;
+  actualitzarStats();
+
+  let num = estat.progres.nivellActualMapa;
+  let nivell = mapaNivellALletra(num);
+  let contextos = BANCO_VOCAB[nivell];
+
+  if (!contextos) {
+    document.getElementById('lectura-contenidor').innerHTML = "Encara no hi ha lectures d’aquest nivell.";
+    return;
+  }
+
+  // 1. Tria tema i protagonista
   let keys = Object.keys(contextos);
   let temaKey = keys[Math.floor(Math.random() * keys.length)];
-  let historia = contextos[temaKey];
-  let protagonista = historia.persones[Math.floor(Math.random() * historia.persones.length)];
+  let h = contextos[temaKey];
+  let protagonista = h.persones[Math.floor(Math.random() * h.persones.length)];
+  let pronom = protagonista.startsWith("La")? "ella" : "ell";
 
-  // Auxiliars
-  function getObjectePerVerb(verb, llistaObjectes) {
-    let bons = llistaObjectes.filter(o => Math.random() > 0.3);
-    return bons.length > 0? bons[Math.floor(Math.random()*bons.length)] :
-           llistaObjectes[Math.floor(Math.random()*llistaObjectes.length)];
-  }
+  let get = arr => arr[Math.floor(Math.random() * arr.length)];
 
-  function ambArticle(lloc) {
-    if(['casa', 'escola', 'botiga', 'biblioteca', 'piscina', 'feina', 'cuina', 'aula'].includes(lloc)) return 'a ' + lloc;
-    if(lloc.includes('plaça') || lloc.includes('parc') || lloc.includes('mercat') || lloc.includes('pista')) return 'a la ' + lloc;
-    if(lloc.includes('museu') || lloc.includes('laboratori') || lloc.includes('cinema')) return 'al ' + lloc;
-    return 'a ' + lloc;
-  }
+  // 2. Munta la història completa en un sol bloc
+  let lloc = get(h.llocs);
+  let verb1 = get(h.verbs);
+  let obj1 = get(h.objectes);
+  let verb2 = get(h.verbs);
+  let obj2 = get(h.objectes);
+  let verb3 = get(h.verbs);
+  let obj3 = get(h.objectes);
 
-  // 2. Muntem la història
-  let paraules = [];
+  let text = `${protagonista} ${verb1} ${obj1} pel ${lloc}. `;
+  text += `Eren ${get(h.temps)} i tot tenia un toc de ${get(h.atmosfera)}. `;
+  text += `${get(h.connectors)}, ${pronom} va sentir ${get(h.detalls)}. `;
+  text += `${get(h.causa_efecte)}, ${pronom} va haver de ${verb2} ${obj2}. `;
+  text += `Així que ${pronom} ${verb3} ${obj3}. `;
+  text += get(h.tancaments) + ".";
 
-  // Inici
-  paraules.push(historia.marcadors_temporals[0] + ",");
-  paraules.push(protagonista.toLowerCase());
-  paraules.push("està");
-  let lloc1 = historia.llocs[Math.floor(Math.random()*historia.llocs.length)];
-  paraules.push(ambArticle(lloc1) + ".");
+  // 3. Destaquem 6 paraules de vocabulari del tema
+  let vocab = [...new Set([...h.llocs,...h.objectes,...h.verbs])].sort(() => 0.5 - Math.random()).slice(0, 6);
+  let textAmbHighlight = text;
+  vocab.forEach(p => {
+    const re = new RegExp(`\\b${p}\\b`, 'gi');
+    textAmbHighlight = textAmbHighlight.replace(re, `<span style="color:#4CAF50; font-weight:bold;">${p}</span>`);
+  });
 
-  // Desenvolupament - 4 accions amb connectors
-  for(let i=0; i<4; i++) {
-    if(i > 0) {
-      let connector = Math.random() > 0.5?
-        historia.conectores[Math.floor(Math.random()*historia.conectores.length)] :
-        historia.causa_efecte[Math.floor(Math.random()*historia.causa_efecte.length)];
-      paraules.push(connector + ",");
-    }
+  // 4. Nota gramatical segons nivell
+  let nota = nivell === "a1"? "Nota: En català posem l'article abans del nom: <i>la casa, el llibre</i>" :
+             nivell === "a2"? "Nota: Usem el passat perifràstic: <i>vaig anar, va estudiar</i>" :
+             "Nota: El subjuntiu s'usa després de <i>que</i>: <i>vull que vinguis</i>";
 
-    let subjecte = i % 2 === 0? protagonista.toLowerCase() :
-                   protagonista.startsWith("La")? "Ella" : "Ell";
-    paraules.push(subjecte);
-
-    let verb = historia.verbs[Math.floor(Math.random()*historia.verbs.length)];
-    let obj = getObjectePerVerb(verb, historia.objectes);
-    paraules.push(verb);
-    paraules.push(obj + ".");
-  }
-
-  // Nus
-  paraules.push(historia.causa_efecte[Math.floor(Math.random()*historia.causa_efecte.length)] + ",");
-  paraules.push("hi");
-  paraules.push("ha");
-  paraules.push("un");
-  paraules.push("problema.");
-
-  // Desenllaç
-  let lloc2 = historia.llocs[Math.floor(Math.random()*historia.llocs.length)];
-  paraules.push(protagonista);
-  paraules.push(historia.marcadors_temporals[historia.marcadors_temporals.length-1].toLowerCase());
-  paraules.push("va");
-  paraules.push(ambArticle(lloc2) + ",");
-  paraules.push("resol");
-  paraules.push("tot");
-  paraules.push("i");
-  paraules.push("ara");
-  paraules.push("està");
-  paraules.push("content.");
-
-  // Ajust a 68 paraules
-  let text = paraules.join(" ");
-  let words = text.split(" ");
-  if(words.length > 68) text = words.slice(0, 68).join(" ");
-  else while(words.length < 68) { text += " Molt bé."; words = text.split(" "); }
-
-  // Vocabulari del tema - 14 paraules aleatòries
-  let vocabulariTema = [...new Set([...historia.llocs,...historia.objectes,...historia.verbs])].sort(() => 0.5 - Math.random()).slice(0, 14);
-  let vocabHTML = vocabulariTema.map(p =>
+  // 5. HTML final
+  let vocabHTML = vocab.map(p =>
     `<div style="display:flex; justify-content:space-between; margin:4px 0; font-size:15px;">
       <span style="color:#4CAF50;">${p}</span>
       <span style="opacity:0.8;">${p}</span>
     </div>`
   ).join('');
 
-  let notaGramatical = nivell === "a1"? "Nota: En català posem l'article abans del nom: <i>la casa, el llibre</i>" :
-                       nivell === "a2"? "Nota: Usem el passat perifràstic: <i>vaig anar, va estudiar</i>" :
-                       "Nota: El subjuntiu s'usa després de <i>que</i>: <i>vull que vinguis</i>";
-
-  let html = `
-    <div style="margin-bottom:15px; line-height:1.8; font-size:16px; text-align:justify;">${text}</div>
+  document.getElementById('lectura-contenidor').innerHTML = `
+    <div style="margin-bottom:15px; line-height:1.8; font-size:16px; text-align:justify;">${textAmbHighlight}</div>
     <div style="background:#1f1f1f; padding:14px; border-radius:10px; margin-bottom:15px;">
       <div style="color:#4CAF50; font-weight:bold; font-size:16px; margin-bottom:10px;">
         Vocabulari del tema: ${temaKey.replace(/_/g,' ').replace(/^la |^el /,'')}
@@ -638,17 +639,15 @@ function generarLectura() {
       ${vocabHTML}
     </div>
     <div style="background:#1a2a1a; padding:12px; border-radius:8px; margin-bottom:15px; font-size:14px; border-left:3px solid #4CAF50;">
-      ${notaGramatical}
+      ${nota}
     </div>
     <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:12px;">
       <div style="font-weight:bold; margin-bottom:6px;">Pregunta de comprensió:</div>
-      <div>Quin problema té ${protagonista} i com el resol?</div>
+      <div>Què descobreix ${protagonista} al final de la història?</div>
     </div>
   `;
-
-  document.getElementById('lectura-contenidor').innerHTML = html;
+  guardarDades();
   }
-
 
 // ===== TIPS =====
 const dadesTips = {
