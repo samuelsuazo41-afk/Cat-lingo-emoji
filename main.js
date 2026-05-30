@@ -110,8 +110,8 @@ function aplicarIdioma() {
   document.getElementById('tab-botiga-txt').textContent = LANG.tab_botiga;
   document.getElementById('btn-lectura').textContent = LANG.lectura_btn;
 }
-  
-  function actualitzarUI() {
+
+function actualitzarUI() {
   document.getElementById('monedes').textContent = estat.monedes;
   document.getElementById('energia-display').textContent = estat.energia;
   actualitzarBarraProgres();
@@ -138,10 +138,8 @@ function guardarEstat() {
   localStorage.setItem('cat_compres', JSON.stringify(estat.compres));
   localStorage.setItem('cat_emojis', JSON.stringify(estat.emojisDesbloquejats));
   localStorage.setItem('cat_progres', JSON.stringify(estat.progres));
-}
-
-function actualitzarUI() {
-  document.getElementById('monedes').textContent = estat.monedes;
+  localStorage.setItem('cat_energia', estat.energia);
+  localStorage.setItem('cat_ultima_energia', estat.ultimaRecargaEnergia);
 }
 
 // ===== CARREGAR DADES =====
@@ -452,7 +450,7 @@ const BANCO_VOCAB = {
       detalls: ["olor de pergamí vell", "so de passes llunyanes", "llum que entra per la finestra", "text quasi esborrat"],
       tancaments: ["va entendre que el passat també parla", "va sortir amb una pregunta nova al cap", "va sentir que formava part d’aquella història"]
     },
-    el_cine_i_musica: {
+        el_cine_i_musica: {
       persones: ["En Alex", "La Núria", "En Toni", "La Sílvia", "En Pol", "La Berta", "En Marc", "La Laura"],
       llocs: ["cinema", "teatre", "sala", "casa", "escenari", "auditori", "estudi", "festival"],
       objectes: ["pel·lícula", "cançó", "guitarra", "entrada", "palomites", "refresc", "cartell", "altaveu", "micròfon", "pantalla", "butaca", "escena"],
@@ -557,18 +555,6 @@ const BANCO_VOCAB = {
 
 // ===== SISTEMA D'ENERGIA =====
 
-// Estat global - afegeix aquestes 2 línies si no les tens
-let estat = {
-  monedes: parseInt(localStorage.getItem('cat_monedes')) || 0,
-  compres: JSON.parse(localStorage.getItem('cat_compres')) || [],
-  emojisDesbloquejats: JSON.parse(localStorage.getItem('cat_emojis')) || ['😀','😊','😂','👨','👩','🐶','🏠','🍎','🚗','⚽'],
-  progres: JSON.parse(localStorage.getItem('cat_progres')) || {respostesCorrectes: 0, nivellActualMapa: 1},
-  energia: parseInt(localStorage.getItem('cat_energia')) || 100,
-  ultimaRecargaEnergia: parseInt(localStorage.getItem('cat_ultima_energia')) || Date.now(),
-  minijoc: {fraseObjectiu: null, emojisTriats: [], emojisDisponibles: []},
-  packs_botiga: []
-};
-
 // Regenera 1 punt cada 5 minuts
 function recargarEnergia() {
   const MAX_ENERGIA = 100;
@@ -608,16 +594,6 @@ function recargarConMonedes() {
   actualitzarUI();
   cargarLectura();
   mostrarModal("Energia recarregada a 100!");
-}
-
-// Actualitza guardarEstat per incloure energia
-function guardarEstat() {
-  localStorage.setItem('cat_monedes', estat.monedes);
-  localStorage.setItem('cat_compres', JSON.stringify(estat.compres));
-  localStorage.setItem('cat_emojis', JSON.stringify(estat.emojisDesbloquejats));
-  localStorage.setItem('cat_progres', JSON.stringify(estat.progres));
-  localStorage.setItem('cat_energia', estat.energia);
-  localStorage.setItem('cat_ultima_energia', estat.ultimaRecargaEnergia);
 }
 
 // ===== LECTURA =====
@@ -913,3 +889,4 @@ async function comprarPack(id, preu, event) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
 }
+      
