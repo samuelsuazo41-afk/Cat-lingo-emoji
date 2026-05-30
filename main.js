@@ -101,6 +101,7 @@ function aplicarIdioma() {
   document.getElementById('tab-lectura-txt').textContent = LANG.tab_lectura;
   document.getElementById('tab-tips-txt').textContent = LANG.tab_tips;
   document.getElementById('tab-botiga-txt').textContent = LANG.tab_botiga;
+  document.getElementById('btn-lectura').textContent = LANG.lectura_btn;
 }
 
 function canviarTab(tab, e) {
