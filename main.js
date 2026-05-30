@@ -42,6 +42,7 @@ let estat = {
   compres: JSON.parse(localStorage.getItem('cat_compres')) || [],
   emojisDesbloquejats: JSON.parse(localStorage.getItem('cat_emojis')) || ['😀','😊','😂','👨','👩','🐶','🏠','🍎','🚗','⚽'],
   progres: JSON.parse(localStorage.getItem('cat_progres')) || {respostesCorrectes: 0, nivellActualMapa: 1},
+  energia: 100,
   minijoc: {fraseObjectiu: null, emojisTriats: [], emojisDisponibles: []},
   packs_botiga: []
 };
@@ -57,7 +58,8 @@ const LANGS = {
     no_prou_monedes: "No tens prou monedes!", comprat: "Comprat",
     lectura_titol: "Lectura", lectura_btn: "Generar Lectura",
     tips_titol: "Tips", tips_btn: "Nou Tip",
-    nivell: "Nivell", desbloquejat: "Desbloquejat!", et_falten: "Et falten", frases: "frases"
+    nivell: "Nivell", desbloquejat: "Desbloquejat!", et_falten: "Et falten", frases: "frases",
+    energy_low: "No tens prou energia! Espera o completa una missió."
   }
 };
 
@@ -81,6 +83,10 @@ function mapaNivellALletra(num) {
   return 'b1';
 }
 
+function actualitzarStats() {
+  guardarEstat();
+}
+
 // ===== INICIALITZACIÓ =====
 document.addEventListener('DOMContentLoaded', async () => {
   aplicarIdioma();
@@ -89,7 +95,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   carregarMapa();
   carregarBotiga();
   carregarTips();
-  carregarLectura();
+  cargarLectura();
   mostrarBibliotecaTab('diccionari', null);
 });
 
@@ -115,7 +121,7 @@ function canviarTab(tab, e) {
   if(tab === 'mapa') carregarMapa();
   if(tab === 'missio') carregarMissioTab();
   if(tab === 'gremi') mostrarBibliotecaTab('diccionari', null);
-  if(tab === 'lectura') carregarLectura();
+  if(tab === 'lectura') cargarLectura();
   if(tab === 'tips') carregarTips();
   if(tab === 'botiga') carregarBotiga();
 }
@@ -540,37 +546,9 @@ const BANCO_VOCAB = {
       tancaments: ["va marxar amb la cançó al cap", "va entendre que la música uneix", "va guardar aquell moment com un tresor"]
     }
   }
-}; 
+};
 
-function cargarLectura() {
-  let num = estat.progres.nivellActualMapa;
-  let nivell = mapaNivellALletra(num);
-  let contextos = BANCO_VOCAB[nivell];
-
-  if (!contextos) {
-    document.getElementById('lectura-contenidor').innerHTML = "Encara no hi ha lectures d’aquest nivell.";
-    return;
-  }
-
-  // Agafem el nom del primer tema per mostrar-lo al missatge inicial
-  let primerTema = Object.keys(contextos)[0].replace(/_/g,' ').replace(/^la |^el /,'');
-
-  // Missatge inicial
-  document.getElementById('lectura-contenidor').innerHTML = `
-    <div style="text-align:center; padding:20px; opacity:0.8;">
-      <div style="font-size:48px; margin-bottom:10px;">📖</div>
-      <div style="font-size:16px; margin-bottom:10px;">
-        Nivell ${nivell.toUpperCase()} - ${primerTema}
-      </div>
-      <div style="font-size:14px; opacity:0.7;">
-        Prem "Generar Lectura" per començar una història nova
-      </div>
-    </div>
-  `;
-}
-
-
-  function generarLectura() {
+function generarLectura() {
   if (estat.energia < 10) return mostrarModal(LANG.energy_low);
   estat.energia -= 10;
   actualitzarStats();
@@ -584,7 +562,6 @@ function cargarLectura() {
     return;
   }
 
-  // 1. Tria tema i protagonista
   let keys = Object.keys(contextos);
   let temaKey = keys[Math.floor(Math.random() * keys.length)];
   let h = contextos[temaKey];
@@ -593,7 +570,6 @@ function cargarLectura() {
 
   let get = arr => arr[Math.floor(Math.random() * arr.length)];
 
-  // 2. Munta la història completa en un sol bloc
   let lloc = get(h.llocs);
   let verb1 = get(h.verbs);
   let obj1 = get(h.objectes);
@@ -609,7 +585,6 @@ function cargarLectura() {
   text += `Així que ${pronom} ${verb3} ${obj3}. `;
   text += get(h.tancaments) + ".";
 
-  // 3. Destaquem 6 paraules de vocabulari del tema
   let vocab = [...new Set([...h.llocs,...h.objectes,...h.verbs])].sort(() => 0.5 - Math.random()).slice(0, 6);
   let textAmbHighlight = text;
   vocab.forEach(p => {
@@ -617,12 +592,10 @@ function cargarLectura() {
     textAmbHighlight = textAmbHighlight.replace(re, `<span style="color:#4CAF50; font-weight:bold;">${p}</span>`);
   });
 
-  // 4. Nota gramatical segons nivell
   let nota = nivell === "a1"? "Nota: En català posem l'article abans del nom: <i>la casa, el llibre</i>" :
              nivell === "a2"? "Nota: Usem el passat perifràstic: <i>vaig anar, va estudiar</i>" :
              "Nota: El subjuntiu s'usa després de <i>que</i>: <i>vull que vinguis</i>";
 
-  // 5. HTML final
   let vocabHTML = vocab.map(p =>
     `<div style="display:flex; justify-content:space-between; margin:4px 0; font-size:15px;">
       <span style="color:#4CAF50;">${p}</span>
@@ -647,7 +620,7 @@ function cargarLectura() {
     </div>
   `;
   guardarDades();
-  }
+}
 
 // ===== TIPS =====
 const dadesTips = {
@@ -825,4 +798,3 @@ async function comprarPack(id, preu, event) {
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
 }
-    
