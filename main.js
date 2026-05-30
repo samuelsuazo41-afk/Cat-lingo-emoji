@@ -734,7 +734,7 @@ function generarLectura() {
       <div>Què descobreix ${protagonista} al final de la història?</div>
     </div>
   `;
-  guardarDades();
+  guardarEstat();
 }
 
 // ===== TIPS =====
