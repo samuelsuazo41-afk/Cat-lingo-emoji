@@ -117,6 +117,13 @@ function actualitzarUI() {
   actualitzarBarraProgres();
 }
 
+function actualitzarBarraProgres() {
+  const respostesActuals = estat.progres.respostesCorrectes % 25;
+  const percentatge = (respostesActuals / 25) * 100;
+  const barra = document.getElementById('progres-barra');
+  if (barra) barra.style.width = percentatge + '%';
+}
+
 function canviarTab(tab, e) {
   document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
