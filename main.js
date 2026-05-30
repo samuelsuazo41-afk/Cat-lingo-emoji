@@ -232,7 +232,8 @@ function carregarMissioTab() {
   
   const teEnergia = estat.energia >= 70;
   const teMonedesLectura = estat.monedes >= 20;
-  const teMonedesEmoji = estat.monedes >= 40;
+  const PREU_PACK_EMOJI = 250; // <- posa aquí el preu real del teu pack més barat
+  const teMonedesEmoji = estat.monedes >= PREU_PACK_EMOJI;
 
   cont.innerHTML = `
     <!-- Missió 1: Progrés nivell -->
@@ -267,7 +268,7 @@ function carregarMissioTab() {
     <!-- Missió 4: Desbloquejar Pack Emoji -->
     <div class="gremi-item" style="text-align:center; margin-bottom:14px;">
       <h3>🛍️ Desbloquejar Pack Emoji</h3>
-      <p style="color:#888; margin:15px 0;">Cost: 40 🪙 Monedes</p>
+      <p style="color:#888; margin:15px 0;">Cost: ${PREU_PACK_EMOJI} 🪙 Monedes</p>
       <button class="btn" onclick="canviarTab('botiga', null)" ${!teMonedesEmoji ? 'disabled' : ''} style="margin-top:10px;">
         ${teMonedesEmoji ? 'Ja pots!' : 'No tens prou'}
       </button>
