@@ -42,7 +42,8 @@ let estat = {
   compres: JSON.parse(localStorage.getItem('cat_compres')) || [],
   emojisDesbloquejats: JSON.parse(localStorage.getItem('cat_emojis')) || ['😀','😊','😂','👨','👩','🐶','🏠','🍎','🚗','⚽'],
   progres: JSON.parse(localStorage.getItem('cat_progres')) || {respostesCorrectes: 0, nivellActualMapa: 1},
-  energia: 100,
+  energia: parseInt(localStorage.getItem('cat_energia')) || 100,
+  ultimaRecargaEnergia: parseInt(localStorage.getItem('cat_ultima_energia')) || Date.now(),
   minijoc: {fraseObjectiu: null, emojisTriats: [], emojisDisponibles: []},
   packs_botiga: []
 };
@@ -108,11 +109,12 @@ function aplicarIdioma() {
   document.getElementById('tab-tips-txt').textContent = LANG.tab_tips;
   document.getElementById('tab-botiga-txt').textContent = LANG.tab_botiga;
   document.getElementById('btn-lectura').textContent = LANG.lectura_btn;
+}
+  
   function actualitzarUI() {
   document.getElementById('monedes').textContent = estat.monedes;
   document.getElementById('energia-display').textContent = estat.energia;
   actualitzarBarraProgres();
-  }
 }
 
 function canviarTab(tab, e) {
