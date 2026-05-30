@@ -1,4 +1,4 @@
-// main.js - Cat lingo emoji - Versió sense Personatges
+// main.js - Cat lingo emoji v2 - Versió sense Personatges
 
 let deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
