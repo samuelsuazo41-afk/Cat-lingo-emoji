@@ -662,6 +662,17 @@ function generarLectura() {
 
   let keys = Object.keys(contextos);
   let temaKey = keys[Math.floor(Math.random() * keys.length)];
+  console.log("Nivell:", nivell, "TemaKey:", temaKey, "Contextos:", contextos);
+
+  let h = contextos[temaKey];
+  if (!h) {
+    document.getElementById('lectura-contenidor').innerHTML = "Error: no trobo dades per " + temaKey;
+    return;
+  }
+
+
+  let keys = Object.keys(contextos);
+  let temaKey = keys[Math.floor(Math.random() * keys.length)];
   let h = contextos[temaKey];
   let protagonista = h.persones[Math.floor(Math.random() * h.persones.length)];
   let pronom = protagonista.startsWith("La")? "ella" : "ell";
