@@ -225,11 +225,18 @@ function jugarNivellMapa(n) {
 function carregarMissioTab() {
   const cont = document.getElementById('missio-contenidor');
   if(!cont) return;
+  
   const respostesActuals = estat.progres.respostesCorrectes % 25;
   const falten = 25 - respostesActuals;
   const percentatge = (respostesActuals / 25) * 100;
+  
+  const potFerLectura = estat.energia >= 70;
+  const potComprarLectura = estat.monedes >= 20;
+  const potComprarEmoji = estat.monedes >= 40;
+
   cont.innerHTML = `
-    <div class="gremi-item" style="text-align:center;">
+    <!-- Missió 1: Progrés nivell -->
+    <div class="gremi-item" style="text-align:center; margin-bottom:14px;">
       <h3>🎯 ${LANG.nivell} ${estat.progres.nivellActualMapa}</h3>
       <p style="color:#888; margin:15px 0;">${LANG.et_falten} ${falten} ${LANG.frases} per desbloquejar el ${LANG.nivell} ${estat.progres.nivellActualMapa + 1}</p>
       <div style="background:#222; border-radius:10px; height:20px; overflow:hidden; margin:20px 0;">
@@ -238,7 +245,53 @@ function carregarMissioTab() {
       <p style="font-size:14px; color:#aaa;">Progrés: ${respostesActuals}/25</p>
       <button class="btn" onclick="canviarTab('gremi', null); setTimeout(()=>mostrarBibliotecaTab('minijocs', null), 100);" style="margin-top:15px;">Anar a Minijoc</button>
     </div>
+
+    <!-- Missió 2: Generar Lectura amb energia -->
+    <div class="gremi-item" style="text-align:center; margin-bottom:14px;">
+      <h3>📖 Generar Lectura</h3>
+      <p style="color:#888; margin:15px 0;">Cost: 70 ⚡ Energia</p>
+      <button class="btn" onclick="generarLectura()" ${!potFerLectura ? 'disabled' : ''} style="margin-top:10px;">
+        ${potFerLectura ? 'Fer' : 'Bloquejat'}
+      </button>
+    </div>
+
+    <!-- Missió 3: Desbloquejar Lectura Extra amb monedes -->
+    <div class="gremi-item" style="text-align:center; margin-bottom:14px;">
+      <h3>🎯 Desbloquejar Lectura Extra</h3>
+      <p style="color:#888; margin:15px 0;">Cost: 20 🪙 Monedes</p>
+      <button class="btn" onclick="comprarLecturaExtra()" ${!potComprarLectura ? 'disabled' : ''} style="margin-top:10px;">
+        ${potComprarLectura ? 'Comprar' : 'Bloquejat'}
+      </button>
+    </div>
+
+    <!-- Missió 4: Desbloquejar Pack Emoji -->
+    <div class="gremi-item" style="text-align:center; margin-bottom:14px;">
+      <h3>🛍️ Desbloquejar Pack Emoji</h3>
+      <p style="color:#888; margin:15px 0;">Cost: 40 🪙 Monedes</p>
+      <button class="btn" onclick="comprarPackEmoji()" ${!potComprarEmoji ? 'disabled' : ''} style="margin-top:10px;">
+        ${potComprarEmoji ? 'Comprar' : 'Bloquejat'}
+      </button>
+    </div>
   `;
+}
+
+// Funció nova: comprar lectura extra
+function comprarLecturaExtra() {
+  if (estat.monedes < 20) return mostrarModal("No tens prou monedes");
+  estat.monedes -= 20;
+  guardarEstat();
+  actualitzarUI();
+  generarLectura();
+  mostrarModal("Lectura extra desbloquejada! 🎉");
+}
+
+// Funció nova: comprar pack emoji
+function comprarPackEmoji() {
+  if (estat.monedes < 40) return mostrarModal("No tens prou monedes");
+  estat.monedes -= 40;
+  guardarEstat();
+  actualitzarUI();
+  mostrarModal("Pack Emoji desbloquejat! Ves al Gremi per veure-ho 📚");
 }
 
 // ===== GREMI = BIBLIOTECA =====
